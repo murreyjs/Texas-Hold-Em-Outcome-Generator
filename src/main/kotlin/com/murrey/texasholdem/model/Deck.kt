@@ -43,4 +43,4 @@ class Deck {
 /**
  * Model for a standard playing card.
  */
-data class Card(var suit: Suit, var value: CardValue)
+data class Card(val suit: Suit, val value: CardValue)
