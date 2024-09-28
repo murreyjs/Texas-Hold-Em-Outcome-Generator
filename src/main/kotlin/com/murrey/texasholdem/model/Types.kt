@@ -1,6 +1,41 @@
 package com.murrey.texasholdem.model
 
 /**
+ * Alias for a list of [String]s that are written as a row in a CSV file.
+ */
+typealias MutableCsvRow = MutableList<String>
+
+/**
+ * Alias for a list of [MutableCsvRow]s.
+ */
+typealias MutableCsvRows = MutableList<MutableCsvRow>
+
+/**
+ * Alias for a list of [Card]s
+ */
+typealias Cards = List<Card>
+
+/**
+ * Alias for a mutable list of [Card]s
+ */
+typealias MutableCards = MutableList<Card>
+
+/**
+ * Alias for a list of [Player]s
+ */
+typealias Players = List<Player>
+
+/**
+ * Alias for a mutable list of [Player]s
+ */
+typealias MutablePlayers = MutableList<Player>
+
+/**
+ * Alias for a list of [CardValue]s
+ */
+typealias CardValues = List<CardValue>
+
+/**
  * Enum representing the suit of a [Card].
  */
 enum class Suit {
@@ -27,16 +62,6 @@ enum class CardValue {
     QUEEN,
     KING,
     ACE;
-
-    /**
-     * Returns true if the [CardValue] is a face value, otherwise false.
-     */
-    fun isFaceCard(): Boolean {
-        return when (this) {
-            JACK, QUEEN, KING, ACE -> true
-            else -> false
-        }
-    }
 }
 
 /**

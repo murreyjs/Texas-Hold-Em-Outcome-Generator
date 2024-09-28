@@ -9,6 +9,7 @@ repositories {
 dependencies {
     implementation(kotlin("stdlib"))
     testImplementation(kotlin("test")) // Adds kotlin-test dependenczy
+    testImplementation("org.junit.jupiter:junit-jupiter-params:5.9.0")
 }
 
 tasks.test {

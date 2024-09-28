@@ -1,8 +1,6 @@
 package com.murrey.texasholdem.game.hand
 
-import com.murrey.texasholdem.model.Card
-import com.murrey.texasholdem.model.CardValue
-import com.murrey.texasholdem.model.HandType
+import com.murrey.texasholdem.model.*
 import com.murrey.texasholdem.util.combinations
 
 /**
@@ -16,7 +14,7 @@ object HandTypeEvaluator {
      * @param cards the list of seven [Card]s used to determine the best [HandType].
      * @return the best [HandType].
      */
-    fun evaluateHandType(cards: List<Card>): HandType {
+    fun evaluateHandType(cards: Cards): HandType {
         require(cards.size == 7) { "Input must be exactly 7 cards" }
 
         val allCombinations = cards.combinations(5)
@@ -29,18 +27,19 @@ object HandTypeEvaluator {
      * @param cards the list of [Card]s used to determine the [HandType].
      * @return the [HandType] of the five [Card]s.
      */
-    private fun evaluateFiveCardHand(cards: List<Card>): HandType {
+    private fun evaluateFiveCardHand(cards: Cards): HandType {
         require(cards.size == 5) { "Hand must contain exactly 5 cards" }
 
         val values = cards.map { it.value }
         val suits = cards.map { it.suit }
 
+        val isRoyalFlush = values == listOf(CardValue.ACE, CardValue.KING, CardValue.QUEEN, CardValue.JACK, CardValue.TEN)
         val isFlush = suits.toSet().size == 1
         val isStraight = isStraight(values)
         val valueGroups = values.groupBy { it }.mapValues { it.value.size }
 
         return when {
-            isFlush && isStraight && values.all { it.isFaceCard() } -> HandType.ROYAL_FLUSH
+            isRoyalFlush -> HandType.ROYAL_FLUSH
             isFlush && isStraight -> HandType.STRAIGHT_FLUSH
             valueGroups.containsValue(4) -> HandType.FOUR_OF_A_KIND
             valueGroups.containsValue(3) && valueGroups.containsValue(2) -> HandType.FULL_HOUSE
@@ -56,10 +55,10 @@ object HandTypeEvaluator {
     /**
      * Determines if a list of [CardValue]s can be categorized as a [HandType.STRAIGHT].
      *
-     * @param values the [CardValue]s used to determine the existence of a [HandType.STRAIGHT].
+     * @param values the [CardValues] used to determine the existence of a [HandType.STRAIGHT].
      * @return [Boolean] true if the [values] are a [HandType.STRAIGHT], false otherwise.
      */
-    private fun isStraight(values: List<CardValue>): Boolean {
+    private fun isStraight(values: CardValues): Boolean {
         val sortedValues = values.sortedBy { it.ordinal }
         val isRegularStraight = sortedValues.zipWithNext().all { (a, b) -> b.ordinal - a.ordinal == 1 }
         val isAceLowStraight = sortedValues == listOf(CardValue.TWO, CardValue.THREE, CardValue.FOUR, CardValue.FIVE, CardValue.ACE)

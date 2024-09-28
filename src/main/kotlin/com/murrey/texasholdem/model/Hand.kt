@@ -11,10 +11,15 @@ package com.murrey.texasholdem.model
  * @param fourthKicker the fourth kicker [CardValue] in the [Hand], null if [HandType] doesn't require this kicker.
  */
 data class Hand(
-    override val handType: HandType,
-    override var highCard: CardValue? = null,
-    override var firstKicker: CardValue? = null,
-    override var secondKicker: CardValue? = null,
-    override var thirdKicker: CardValue? = null,
-    override var fourthKicker: CardValue? = null
-) : HandInterface
+    val handType: HandType,
+    var highCard: CardValue,
+    var firstKicker: CardValue,
+    var secondKicker: CardValue,
+    var thirdKicker: CardValue,
+    var fourthKicker: CardValue
+)
+
+/**
+ * Exception to throw when the self players [Hand] is not yet initialized.
+ */
+class HandNotInitializedException : IllegalStateException("Self does not have hand type yet, please call play() function")

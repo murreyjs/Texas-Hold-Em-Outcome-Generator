@@ -3,7 +3,7 @@ package com.murrey.texasholdem.model
 /**
  * Implementation of the [Player] interface.
  */
-class Player : PlayerInterface {
+class Player {
 
     companion object {
         private const val MAX_HOLE_CARDS = 2
@@ -12,7 +12,7 @@ class Player : PlayerInterface {
     /**
      * The hole [Card]s that a player currently holds.
      */
-    private val holeCards: MutableList<Card> = mutableListOf()
+    private val holeCards: MutableCards = mutableListOf()
 
     /**
      * Function that adds a card to a players hole cards.
@@ -20,7 +20,7 @@ class Player : PlayerInterface {
      * @param card the [Card] to add to the players hole [Card]s.
      * @throws IllegalArgumentException if player already has max number of hole [Card]s.
      */
-    override fun receiveHoleCard(card: Card) {
+    fun receiveHoleCard(card: Card) {
         require(holeCards.size < MAX_HOLE_CARDS)
         holeCards.add(card)
     }
@@ -30,5 +30,5 @@ class Player : PlayerInterface {
      *
      * @return list of hole [Card]s.
      */
-    override fun getHoleCards() = holeCards.toList()
+    fun getHoleCards() = holeCards.toList()
 }

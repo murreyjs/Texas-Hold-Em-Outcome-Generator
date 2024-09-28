@@ -2,9 +2,7 @@ package com.murrey.texasholdem.game.outcome
 
 import com.murrey.texasholdem.game.hand.HandBuilder
 import com.murrey.texasholdem.game.hand.HandComparator
-import com.murrey.texasholdem.model.Card
-import com.murrey.texasholdem.model.Outcome
-import com.murrey.texasholdem.model.Player
+import com.murrey.texasholdem.model.*
 
 /**
  * Object containing functions related to evaluating the outcome of a Texas Hold Em game for a single player.
@@ -20,12 +18,12 @@ object OutcomeEvaluator {
      *
      * @return the [Outcome] for the [self] [Player].
      */
-    fun evaluateOutcome(self: Player, others: List<Player>, communityCards: List<Card>): Outcome {
+    fun evaluateOutcome(self: Player, others: Players, communityCards: Cards): Outcome {
         val playerHands = others.map { player ->
             HandBuilder.buildHand(player.getHoleCards() + communityCards)
         }
         val selfHand= HandBuilder.buildHand(self.getHoleCards() + communityCards)
-        var outcomes = mutableListOf<Outcome>()
+        val outcomes = mutableListOf<Outcome>()
         playerHands.forEach {
             outcomes.add(HandComparator.compare(selfHand, it))
         }

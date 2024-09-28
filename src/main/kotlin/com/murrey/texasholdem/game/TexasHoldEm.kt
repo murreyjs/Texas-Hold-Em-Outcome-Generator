@@ -1,19 +1,56 @@
 package com.murrey.texasholdem.game
 
 import com.murrey.texasholdem.game.outcome.OutcomeEvaluator
-import com.murrey.texasholdem.model.Card
-import com.murrey.texasholdem.model.Deck
-import com.murrey.texasholdem.model.Outcome
-import com.murrey.texasholdem.model.Player
+import com.murrey.texasholdem.model.*
 
 /**
  * Class that deals cards to players in the format of a texas hold 'em game and determines winner.
  */
 class TexasHoldEm {
+
+    /**
+     * A [Player] representing the self, who will have the [Outcome] of the game determined for themselves.
+     */
     private val self: Player = Player()
-    private val players = mutableListOf<Player>()
+
+    /**
+     * A [Hand] representing the best combination of [Card]s that [self] will use in the game.
+     */
+    private val _selfHand: Hand? = null
+
+    /**
+     * A list of other [Player]s in the game.
+     */
+    private val players: MutablePlayers = mutableListOf()
+
+    /**
+     * The [Deck] that is used to deal hole [Card]s to each player, as well as deal [communityCards].
+     */
     private val deck: Deck = Deck()
-    private val communityCards: MutableList<Card> = mutableListOf()
+
+    /**
+     * The list of community [Card]s that are dealt in the game.
+     */
+    private val _communityCards: MutableCards = mutableListOf()
+
+    /**
+     * Getter for the hole [Card]s that the [self] holds.
+     */
+    val selfHoleCards: Cards
+        get() = self.getHoleCards()
+
+    /**
+     * Getter for the [_selfHand].
+     */
+    val selfHand: Hand
+        get() = _selfHand ?: throw HandNotInitializedException()
+
+    /**
+     * Getter for the [_communityCards] that are dealt in the game.
+     */
+    val communityCards: Cards
+        get() = _communityCards.toList()
+
 
     /**
      * Deals cards to [players] and determines the winner.
@@ -26,7 +63,7 @@ class TexasHoldEm {
         }
         dealHoleCards()
         dealFlopAndRiver()
-        return evaluateWinner()
+        return evaluateOutcome()
     }
 
     /**
@@ -42,24 +79,24 @@ class TexasHoldEm {
     }
 
     /**
-     * Deals the flop and the river to the [communityCards].
+     * Deals the flop and the river to the [_communityCards].
      */
     private fun dealFlopAndRiver() {
         for (i in 0 until FLOP_SIZE) {
-            deck.topCard?.also { communityCards.add(it) }
+            deck.topCard?.also { _communityCards.add(it) }
         }
         for (i in 0 until RIVER_SIZE) {
-            deck.topCard?.also { communityCards.add(it) }
+            deck.topCard?.also { _communityCards.add(it) }
         }
     }
 
     /**
-     * Determines whether [self] won the game.
+     * Determines the [Outcome] of the game for [self].
      *
      * @return the [Outcome] of the game for [self].
      */
-    private fun evaluateWinner(): Outcome {
-        return OutcomeEvaluator.evaluateOutcome(self, players, communityCards)
+    private fun evaluateOutcome(): Outcome {
+        return OutcomeEvaluator.evaluateOutcome(self, players, _communityCards)
     }
 
     companion object {
