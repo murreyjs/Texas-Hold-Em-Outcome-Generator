@@ -85,18 +85,28 @@ object HandBuilder {
      * @return a [Hand] representing a Full House.
      */
     private fun buildFullHouse(cards: MutableCards): Hand {
-        val threeOfAKindValue = cards.findValuesByOccurrence(3).max()
-        val pairValue = cards.findValuesByOccurrence(2).max()
-        val threeGreaterThanTwo = threeOfAKindValue.ordinal > pairValue.ordinal
-        val highCard = if (threeGreaterThanTwo) threeOfAKindValue else pairValue
-        val kicker = if (threeGreaterThanTwo) pairValue else threeOfAKindValue
+        val threeOfAKindValues = cards.findValuesByOccurrence(3)
+
+        // If we have two CardValues that occur three times each, then the three of a kind is the larger value.
+        val threeOfAKindValue = if (threeOfAKindValues.size == 2) {
+            threeOfAKindValues.maxBy { it.ordinal }
+        } else {
+            threeOfAKindValues.first()
+        }
+
+        // If we have two CardValues that occur three times each, then the pair is the smaller value.
+        val pairValue = if (threeOfAKindValues.size == 2) {
+            threeOfAKindValues.minBy { it.ordinal }
+        } else {
+            cards.findValuesByOccurrence(2).first()
+        }
         return Hand(
             handType = HandType.FULL_HOUSE,
-            highCard = highCard,
-            firstKicker = highCard,
-            secondKicker = highCard,
-            thirdKicker = kicker,
-            fourthKicker = kicker
+            highCard = threeOfAKindValue,
+            firstKicker = threeOfAKindValue,
+            secondKicker = threeOfAKindValue,
+            thirdKicker = pairValue,
+            fourthKicker = pairValue
         )
     }
 

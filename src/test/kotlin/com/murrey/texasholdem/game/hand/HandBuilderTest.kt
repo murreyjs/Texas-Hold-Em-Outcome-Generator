@@ -62,6 +62,54 @@ class HandBuilderTest {
                         fourthKicker = CardValue.ACE,
                     )
                 ),
+
+                // Four of a Kind
+                TestData(
+                    cards = listOf(FOUR_CLUBS, FOUR_DIAMONDS, FOUR_HEARTS, FOUR_SPADES, ACE_HEARTS, ACE_SPADES, ACE_CLUBS),
+                    expected = Hand(
+                        handType = HandType.FOUR_OF_A_KIND,
+                        highCard = CardValue.FOUR,
+                        firstKicker = CardValue.FOUR,
+                        secondKicker = CardValue.FOUR,
+                        thirdKicker = CardValue.FOUR,
+                        fourthKicker = CardValue.ACE,
+                    )
+                ),
+                TestData(
+                    cards = listOf(FIVE_CLUBS, FIVE_DIAMONDS, FIVE_HEARTS, FIVE_SPADES, THREE_CLUBS, KING_DIAMONDS, QUEEN_CLUBS),
+                    expected = Hand(
+                        handType = HandType.FOUR_OF_A_KIND,
+                        highCard = CardValue.FIVE,
+                        firstKicker = CardValue.FIVE,
+                        secondKicker = CardValue.FIVE,
+                        thirdKicker = CardValue.FIVE,
+                        fourthKicker = CardValue.KING,
+                    )
+                ),
+
+                // Full House
+                TestData(
+                    cards = listOf(FOUR_CLUBS, FOUR_DIAMONDS, FOUR_HEARTS, EIGHT_HEARTS, EIGHT_CLUBS, EIGHT_SPADES, THREE_CLUBS),
+                    expected = Hand(
+                        handType = HandType.FULL_HOUSE,
+                        highCard = CardValue.EIGHT,
+                        firstKicker = CardValue.EIGHT,
+                        secondKicker = CardValue.EIGHT,
+                        thirdKicker = CardValue.FOUR,
+                        fourthKicker = CardValue.FOUR,
+                    )
+                ),
+                TestData(
+                    cards = listOf(THREE_CLUBS, THREE_SPADES, THREE_HEARTS, TEN_CLUBS, TEN_HEARTS, KING_DIAMONDS, QUEEN_CLUBS),
+                    expected = Hand(
+                        handType = HandType.FULL_HOUSE,
+                        highCard = CardValue.THREE,
+                        firstKicker = CardValue.THREE,
+                        secondKicker = CardValue.THREE,
+                        thirdKicker = CardValue.TEN,
+                        fourthKicker = CardValue.TEN,
+                    )
+                ),
             )
         }
 
