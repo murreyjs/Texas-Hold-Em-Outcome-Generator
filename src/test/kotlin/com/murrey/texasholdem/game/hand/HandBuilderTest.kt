@@ -21,60 +21,25 @@ class HandBuilderTest {
                 // Royal Flush
                 TestData(
                     cards = listOf(ACE_CLUBS, KING_CLUBS, QUEEN_CLUBS, JACK_CLUBS, TEN_CLUBS, NINE_CLUBS, EIGHT_CLUBS),
-                    expected = Hand(
-                        handType = HandType.ROYAL_FLUSH,
-                        highCard = CardValue.ACE,
-                        firstKicker = CardValue.KING,
-                        secondKicker = CardValue.QUEEN,
-                        thirdKicker = CardValue.JACK,
-                        fourthKicker = CardValue.TEN
-                    )
+                    expected = ROYAL_FLUSH
                 ),
                 TestData(
                     cards = listOf(ACE_CLUBS, KING_CLUBS, QUEEN_CLUBS, JACK_CLUBS, TEN_CLUBS, TEN_DIAMONDS, ACE_HEARTS),
-                    expected = Hand(
-                        handType = HandType.ROYAL_FLUSH,
-                        highCard = CardValue.ACE,
-                        firstKicker = CardValue.KING,
-                        secondKicker = CardValue.QUEEN,
-                        thirdKicker = CardValue.JACK,
-                        fourthKicker = CardValue.TEN
-                    )
+                    expected = ROYAL_FLUSH
                 ),
 
                 // Straight Flush
                 TestData(
                     cards = listOf(KING_CLUBS, QUEEN_CLUBS, JACK_CLUBS, TEN_CLUBS, NINE_CLUBS, EIGHT_CLUBS, SEVEN_CLUBS),
-                    expected = Hand(
-                        handType = HandType.STRAIGHT_FLUSH,
-                        highCard = CardValue.KING,
-                        firstKicker = CardValue.QUEEN,
-                        secondKicker = CardValue.JACK,
-                        thirdKicker = CardValue.TEN,
-                        fourthKicker = CardValue.NINE,
-                    )
+                    expected = STRAIGHT_FLUSH_1
                 ),
                 TestData(
                     cards = listOf(NINE_DIAMONDS, EIGHT_DIAMONDS, SEVEN_DIAMONDS, SIX_DIAMONDS, FIVE_DIAMONDS, SIX_SPADES, EIGHT_HEARTS),
-                    expected = Hand(
-                        handType = HandType.STRAIGHT_FLUSH,
-                        highCard = CardValue.NINE,
-                        firstKicker = CardValue.EIGHT,
-                        secondKicker = CardValue.SEVEN,
-                        thirdKicker = CardValue.SIX,
-                        fourthKicker = CardValue.FIVE,
-                    )
+                    expected = STRAIGHT_FLUSH_2
                 ),
                 TestData(
                     cards = listOf(ACE_CLUBS, TWO_CLUBS, THREE_CLUBS, FOUR_CLUBS, FIVE_CLUBS, ACE_SPADES, ACE_HEARTS),
-                    expected = Hand(
-                        handType = HandType.STRAIGHT_FLUSH,
-                        highCard = CardValue.FIVE,
-                        firstKicker = CardValue.FOUR,
-                        secondKicker = CardValue.THREE,
-                        thirdKicker = CardValue.TWO,
-                        fourthKicker = CardValue.ACE,
-                    )
+                    expected = STRAIGHT_FLUSH_3
                 ),
 
                 // Four of a Kind
@@ -259,6 +224,40 @@ class HandBuilderTest {
                 ),
             )
         }
+
+        // Hands
+        private val ROYAL_FLUSH = Hand(
+            handType = HandType.ROYAL_FLUSH,
+            highCard = CardValue.ACE,
+            firstKicker = CardValue.KING,
+            secondKicker = CardValue.QUEEN,
+            thirdKicker = CardValue.JACK,
+            fourthKicker = CardValue.TEN
+        )
+        private val STRAIGHT_FLUSH_1 = Hand(
+            handType = HandType.STRAIGHT_FLUSH,
+            highCard = CardValue.KING,
+            firstKicker = CardValue.QUEEN,
+            secondKicker = CardValue.JACK,
+            thirdKicker = CardValue.TEN,
+            fourthKicker = CardValue.NINE,
+        )
+        private val STRAIGHT_FLUSH_2 = Hand(
+            handType = HandType.STRAIGHT_FLUSH,
+            highCard = CardValue.NINE,
+            firstKicker = CardValue.EIGHT,
+            secondKicker = CardValue.SEVEN,
+            thirdKicker = CardValue.SIX,
+            fourthKicker = CardValue.FIVE,
+        )
+        private val STRAIGHT_FLUSH_3 = Hand(
+            handType = HandType.STRAIGHT_FLUSH,
+            highCard = CardValue.FIVE,
+            firstKicker = CardValue.FOUR,
+            secondKicker = CardValue.THREE,
+            thirdKicker = CardValue.TWO,
+            fourthKicker = CardValue.ACE,
+        )
 
         // Hearts
         private val ACE_HEARTS = Card(Suit.HEARTS, CardValue.ACE)
