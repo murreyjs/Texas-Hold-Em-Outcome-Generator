@@ -198,7 +198,7 @@ object HandBuilder {
      * @return a [Hand] representing High Card.
      */
     private fun buildHighCard(cards: MutableCards): Hand {
-        val sortedCards = cards.sortedByDescending { it.value }.toMutableList()
+        val sortedCards = cards.sortedByDescending { it.value }.take(5).toMutableList()
         return buildHand(sortedCards, HandType.HIGH_CARD)
     }
 
@@ -264,8 +264,8 @@ object HandBuilder {
         for (i in 0..distinctWeights.size - handSize) {
             val potentialStraight = distinctWeights.subList(i, i + handSize)
             if (potentialStraight.zipWithNext().all { (a, b) -> a.ordinal - b.ordinal == 1 }) {
-                val straight = sortedCards.filter { it.value in potentialStraight }.toMutableList()
-                return checkStraightFlush(isFlush, flushSuit, straight)
+                val straight = potentialStraight.mapNotNull { value -> sortedCards.find { it.value == value } }
+                return checkStraightFlush(isFlush, flushSuit, straight.toMutableList())
             }
         }
 

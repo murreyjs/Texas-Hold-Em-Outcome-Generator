@@ -23,10 +23,14 @@ object OutcomeEvaluator {
             HandBuilder.buildHand(player.getHoleCards() + communityCards)
         }
         val selfHand= HandBuilder.buildHand(self.getHoleCards() + communityCards)
+
+        // Store the outcomes for the comparison of the self hand with every other players hand.
         val outcomes = mutableListOf<Outcome>()
         playerHands.forEach {
             outcomes.add(HandComparator.compare(selfHand, it))
         }
+
+        // If the self lost or tied with any other player, then return that outcome, otherwise the self won.
         return if (outcomes.any { it == Outcome.LOST }) {
             Outcome.LOST
         } else if (outcomes.any { it == Outcome.TIED }) {
