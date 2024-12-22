@@ -1,5 +1,4 @@
 ## Texas Hold 'Em Outcome Generator
-=====================================
 
 ### Overview
 The purpose of this application is to generate a CSV file containing information about the cards held by a player during a hand of a Texas Hold 'Em game. Each row represents a hand of Texas Hold 'Em, and the columns contain information about the cards held by a single player (referred to as the `self` player) as well as the outcome of the game for the self player (0 being a loss, and 1 being a win).
