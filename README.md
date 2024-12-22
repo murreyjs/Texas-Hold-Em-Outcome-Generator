@@ -9,10 +9,11 @@ This is achieved by simulating games of Texas Hold 'Em. The following is a high 
 
 1. Create players that are participating in the game (one of these players representing yourself).
 2. Create a shuffled deck of cards.
-3. Distribute two cards to each player.
-4. Distribute 5 cards to the community pile (representing the flop and river).
-5. Compare the selfs hand with every other players hand to determine if whether the self won.
-6. Write the relevant data out to a CSV.
+3. Distribute two cards to each player from the top of the deck.
+4. Distribute 5 cards to the community pile (representing the flop and river) from the top of the deck.
+5. Compare the selfs hand with every other players hand to determine if the self won.
+6. Add information about the cards in the self players hand as well as the outcome of the hand for the self player as a row in the CSV.
+7. Write the relevant data out to a CSV file.
 
 ### Future Development
 In the future, I plan on using this data to train a machine learning model that can predict the probability of winning a hand of Texas Hold 'Em, given only information about the cards that a single player holds (i.e. someone could use the model during a game to help make a decision on whether they should continue playing in the round or fold).
