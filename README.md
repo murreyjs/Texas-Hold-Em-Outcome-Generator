@@ -11,7 +11,7 @@ This is achieved by simulating games of Texas Hold 'Em. The following is a high 
 3. Distribute two cards to each player from the top of the deck.
 4. Distribute 5 cards to the community pile (representing the flop and river) from the top of the deck.
 5. Compare the selfs hand with every other players hand to determine if the self won.
-6. Add information about the cards in the self players hand as well as the outcome of the hand for the self player as a row in the CSV.
+6. Add information about the self players cards as well as the outcome of the hand for the self player as a row in the CSV.
 7. Write the relevant data out to a CSV file.
 
 ### Future Development
