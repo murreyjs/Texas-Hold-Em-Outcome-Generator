@@ -23,8 +23,7 @@ class DataWriter {
      */
     fun addRow(
         selfHoleCards: Cards,
-        communityCards: Cards,
-        selfHand: Hand,
+        outcome: Outcome
     ) {
         val row: MutableCsvRow = mutableListOf()
 
@@ -43,9 +42,13 @@ class DataWriter {
         // Add column that is 1 if hole card suits are the same, otherwise 0.
         row.add(oneIfTrue(selfHoleCards[0].suit == selfHoleCards[1].suit))
 
-        // Add column that is 1 if the difference between hole card values is less than or equal to 2.
-        // (they are close so there is possibility of a straight).
-        row.add(oneIfTrue(abs(selfHoleCards[0].value.ordinal - selfHoleCards[1].value.ordinal) <= 2))
+        // Add column for the difference in values of the two cards.
+        row.add(abs(selfHoleCards[0].value.ordinal - selfHoleCards[1].value.ordinal).toString())
+
+        // Add column for the sum in values of the two cards.
+        row.add((selfHoleCards[0].value.ordinal + selfHoleCards[1].value.ordinal).toString())
+
+        row.add(oneIfTrue(outcome == Outcome.WON))
 
         rows.add(row)
     }

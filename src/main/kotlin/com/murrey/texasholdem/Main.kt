@@ -10,8 +10,10 @@ object Main {
         val dataWriter = DataWriter()
         for (i in 0..rounds) {
             val game = TexasHoldEm()
-            game.play()
-            dataWriter.addRow(game.selfHoleCards, game.communityCards, game.selfHand)
+            val outcome = game.play()
+            outcome?.also {
+                dataWriter.addRow(game.selfHoleCards, it)
+            }
         }
         dataWriter.writeToCSV("./game.csv")
     }
