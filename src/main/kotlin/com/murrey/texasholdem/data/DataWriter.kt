@@ -18,8 +18,7 @@ class DataWriter {
      * Builds a [MutableCsvRow] from the provided data and adds it to the [rows].
      *
      * @param selfHoleCards the [Cards] that the self held in the game.
-     * @param communityCards the [Cards] that were community cards in the game.
-     * @param selfHand the [Hand] that the self used to win the game.
+     * @param outcome the [Outcome] of the hand.
      */
     fun addRow(
         selfHoleCards: Cards,
