@@ -44,7 +44,7 @@ class DataWriter {
         // Add column for the difference in values of the two cards.
         row.add(abs(selfHoleCards[0].value.ordinal - selfHoleCards[1].value.ordinal).toString())
 
-        // Add column for the sum in values of the two cards.
+        // Add column for the sum of values of the two cards.
         row.add((selfHoleCards[0].value.ordinal + selfHoleCards[1].value.ordinal).toString())
 
         row.add(oneIfTrue(outcome == Outcome.WON))

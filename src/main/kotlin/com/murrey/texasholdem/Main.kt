@@ -6,7 +6,14 @@ import com.murrey.texasholdem.game.TexasHoldEm
 object Main {
     @JvmStatic
     fun main(args: Array<String>) {
-        val rounds = 10000
+        // Generate training data
+        generateData(10000, "train")
+
+        // Generate test data
+        generateData(1000, "test")
+    }
+
+    private fun generateData(rounds: Int, filename: String) {
         val dataWriter = DataWriter()
         for (i in 0..rounds) {
             val game = TexasHoldEm()
@@ -15,6 +22,6 @@ object Main {
                 dataWriter.addRow(game.selfHoleCards, it)
             }
         }
-        dataWriter.writeToCSV("./game.csv")
+        dataWriter.writeToCSV("./$filename.csv")
     }
 }
