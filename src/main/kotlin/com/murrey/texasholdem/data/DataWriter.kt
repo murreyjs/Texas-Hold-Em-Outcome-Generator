@@ -36,10 +36,10 @@ class DataWriter {
         }
 
         // Add column that is 1 if hole card values are the same, otherwise 0.
-        row.add(oneIfTrue(selfHoleCards[0].value == selfHoleCards[1].value))
+        row.add(boolToBinary(selfHoleCards[0].value == selfHoleCards[1].value))
 
         // Add column that is 1 if hole card suits are the same, otherwise 0.
-        row.add(oneIfTrue(selfHoleCards[0].suit == selfHoleCards[1].suit))
+        row.add(boolToBinary(selfHoleCards[0].suit == selfHoleCards[1].suit))
 
         // Add column for the difference in values of the two cards.
         row.add(abs(selfHoleCards[0].value.ordinal - selfHoleCards[1].value.ordinal).toString())
@@ -47,7 +47,7 @@ class DataWriter {
         // Add column for the sum of values of the two cards.
         row.add((selfHoleCards[0].value.ordinal + selfHoleCards[1].value.ordinal).toString())
 
-        row.add(oneIfTrue(outcome == Outcome.WON))
+        row.add(boolToBinary(outcome == Outcome.WON))
 
         rows.add(row)
     }
@@ -59,7 +59,7 @@ class DataWriter {
      *
      * @return "1" if [eval] is true, otherwise "0".
      */
-    private fun oneIfTrue(eval: Boolean) = if (eval) "1" else "0"
+    private fun boolToBinary(eval: Boolean) = if (eval) "1" else "0"
 
     /**
      * Writes the [rows] to a CSV file.
