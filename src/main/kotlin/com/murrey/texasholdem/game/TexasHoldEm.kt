@@ -1,5 +1,6 @@
 package com.murrey.texasholdem.game
 
+import com.murrey.texasholdem.game.hand.HandBuilder
 import com.murrey.texasholdem.game.outcome.OutcomeEvaluator
 import com.murrey.texasholdem.model.*
 
@@ -16,12 +17,17 @@ class TexasHoldEm {
     /**
      * A [Hand] representing the best combination of [Card]s that [self] will use in the game.
      */
-    private val _selfHand: Hand? = null
+    private var _selfHand: Hand? = null
 
     /**
      * A list of other [Player]s in the game.
      */
     private val players: MutablePlayers = mutableListOf()
+
+    /**
+     * A list of other [Player]s in the game.
+     */
+    private var playersHands: Hands = mutableListOf()
 
     /**
      * The [Deck] that is used to deal hole [Card]s to each player, as well as deal [communityCards].
@@ -57,7 +63,7 @@ class TexasHoldEm {
      *
      * @return the [Outcome] of the game for [self].
      */
-    fun play(): Outcome {
+    fun play(): Outcome? {
         for (i in 1..NUM_PLAYERS) {
             players.add(Player())
         }
@@ -95,8 +101,12 @@ class TexasHoldEm {
      *
      * @return the [Outcome] of the game for [self].
      */
-    private fun evaluateOutcome(): Outcome {
-        return OutcomeEvaluator.evaluateOutcome(self, players, _communityCards)
+    private fun evaluateOutcome(): Outcome? {
+        _selfHand = HandBuilder.buildHand(self.getHoleCards() + _communityCards)
+        playersHands = players.map { player ->
+            HandBuilder.buildHand(player.getHoleCards() + _communityCards)
+        }
+        return _selfHand?.let { OutcomeEvaluator.evaluateOutcome(it, playersHands) }
     }
 
     companion object {

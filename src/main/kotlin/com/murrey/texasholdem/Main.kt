@@ -6,7 +6,7 @@ import com.murrey.texasholdem.game.TexasHoldEm
 object Main {
     @JvmStatic
     fun main(args: Array<String>) {
-        val rounds = 1000
+        val rounds = 10000
         val dataWriter = DataWriter()
         for (i in 0..rounds) {
             val game = TexasHoldEm()

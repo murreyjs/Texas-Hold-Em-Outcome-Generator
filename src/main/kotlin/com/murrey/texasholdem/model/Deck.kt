@@ -28,7 +28,7 @@ class Deck {
      * Returns the top card in the deck.
      */
     val topCard: Card?
-        get() = cards.firstOrNull()
+        get() = cards.removeFirstOrNull()
 
     /**
      * Shuffles the order of the [Card]s in this deck.

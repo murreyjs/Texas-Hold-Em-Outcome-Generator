@@ -257,26 +257,32 @@ object HandBuilder {
             .find { it.value >= 5 }
             ?.key
         val sortedCards = cards.sortedByDescending { it.value }
-        val distinctWeights = sortedCards.map { it.value }.distinct()
+        val distinctWeights = sortedCards.filter { checkSuit(isFlush, it, flushSuit) }.map { it.value }.distinct()
 
 
         // Check for normal consecutive straight
         for (i in 0..distinctWeights.size - handSize) {
             val potentialStraight = distinctWeights.subList(i, i + handSize)
             if (potentialStraight.zipWithNext().all { (a, b) -> a.ordinal - b.ordinal == 1 }) {
-                val straight = potentialStraight.mapNotNull { value -> sortedCards.find { it.value == value } }
+                val straight = potentialStraight
+                    .mapNotNull { value ->
+                        sortedCards.find { it.value == value && checkSuit(isFlush, it, flushSuit) }
+                    }
                 return checkStraightFlush(isFlush, flushSuit, straight.toMutableList())
             }
         }
 
         // Check for ACE low straight
         if (distinctWeights.containsAll(aceLowStraight)) {
-            val straight = sortedCards.filter { it.value in aceLowStraight }.toMutableList()
+            val flushSortedCards = sortedCards.filter { checkSuit(isFlush, it, flushSuit) }
+            val straight = flushSortedCards.filter { it.value in aceLowStraight }.distinctBy { it.value }.toMutableList()
             return checkStraightFlush(isFlush, flushSuit, straight)
         }
 
         throw IllegalArgumentException("The provided MutableCards do not contain a Straight.")
     }
+
+    private fun checkSuit(isFlush: Boolean, card: Card, suit: Suit?) = if (isFlush) card.suit == suit else true
 
     /**
      * If [isFlush] is true, filters the [straight] cards by the [suit]. Otherwise, just returns the [straight].

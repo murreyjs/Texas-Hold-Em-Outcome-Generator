@@ -31,6 +31,11 @@ typealias Players = List<Player>
 typealias MutablePlayers = MutableList<Player>
 
 /**
+ * Alias for a list of [Hand]s
+ */
+typealias Hands = List<Hand>
+
+/**
  * Alias for a list of [CardValue]s
  */
 typealias CardValues = List<CardValue>
